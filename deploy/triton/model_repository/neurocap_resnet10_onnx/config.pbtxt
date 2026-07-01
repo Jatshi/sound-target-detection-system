@@ -1,0 +1,46 @@
+name: "neurocap_resnet10_onnx"
+platform: "onnxruntime_onnx"
+max_batch_size: 8
+
+input [
+  {
+    name: "spec"
+    data_type: TYPE_FP32
+    dims: [ 1, 64, 87 ]
+  }
+]
+
+output [
+  {
+    name: "logits"
+    data_type: TYPE_FP32
+    dims: [ 5 ]
+  }
+]
+
+dynamic_batching {
+  preferred_batch_size: [ 4, 8 ]
+  max_queue_delay_microseconds: 2000
+}
+
+instance_group [
+  {
+    count: 1
+    kind: KIND_GPU
+  }
+]
+
+model_warmup [
+  {
+    name: "warmup_batch_1"
+    batch_size: 1
+    inputs {
+      key: "spec"
+      value {
+        data_type: TYPE_FP32
+        dims: [ 1, 64, 87 ]
+        zero_data: true
+      }
+    }
+  }
+]

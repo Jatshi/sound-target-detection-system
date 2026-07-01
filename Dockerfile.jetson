@@ -1,0 +1,11 @@
+# Jetson deployment template. Build on the target Jetson device with an NVIDIA L4T base image.
+FROM nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3
+WORKDIR /app
+COPY requirements.txt /app/requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+COPY . /app
+ENV PYTHONPATH=/app/src
+ENV SOUNDDET_SERVICE_HOST=0.0.0.0
+EXPOSE 8765
+CMD ["python3", "scripts/run_service.py", "--config", "configs/prod.yaml"]
+

@@ -1,0 +1,13 @@
+[Unit]
+Description=Sound Target Detection Service
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/sound_target_detection_app
+ExecStart=/usr/bin/python3 scripts/run_service.py
+Restart=always
+RestartSec=5
+Environment=SOUNDDET_SERVICE_HOST=0.0.0.0
+
+[Install]
+WantedBy=multi-user.target

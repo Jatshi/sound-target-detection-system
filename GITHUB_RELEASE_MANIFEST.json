@@ -1,0 +1,460 @@
+{
+  "created_at": "2026-07-01T10:00:39",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 484,
+      "sha256": "25b2436228103b59e3c79272f672f6197e87a5335a7eed58ea7074e04b738160"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 435,
+      "sha256": "d28cf0d321a6686272ead59b2358d962970566dde8810f8aa9f06dbf2419208e"
+    },
+    {
+      "path": "configs/default.yaml",
+      "bytes": 374,
+      "sha256": "b7a3ed00eb6a747eaa6254e7863343f20ae3a94490896bad66e6ea8cfd7b0e77"
+    },
+    {
+      "path": "configs/demo.yaml",
+      "bytes": 333,
+      "sha256": "8e9bbffde43584c5a6a9d7a373f769b20a576274f9fee3a1dac48e670c7522b6"
+    },
+    {
+      "path": "configs/prod.yaml",
+      "bytes": 330,
+      "sha256": "6699827fe9a60003a4d082f8a0f18ff53a4c7fd27f82898d396df261464776e8"
+    },
+    {
+      "path": "configs/test.yaml",
+      "bytes": 341,
+      "sha256": "f740b5f01a64d7b0ddf3a78a8818e40421c2ae8241e3618b65011e61679a6807"
+    },
+    {
+      "path": "data/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "deploy/k8s/sounddet-inference.yaml",
+      "bytes": 1923,
+      "sha256": "30b2e375af290658ad61c7466c7e8954820fc19a63073b1463c8f8093ba42f8e"
+    },
+    {
+      "path": "deploy/sounddet.service",
+      "bytes": 289,
+      "sha256": "d948f06f333575d7bd1404e27a66ffd21d09b709e0fa9c85aa9d50b3c20d4435"
+    },
+    {
+      "path": "deploy/triton/model_repository/neurocap_resnet10_onnx/config.pbtxt",
+      "bytes": 606,
+      "sha256": "540b6c3fad63f09a94c6690016a3117e491479fa1cda6925321a4876b8fcbc01"
+    },
+    {
+      "path": "deploy/triton/README.md",
+      "bytes": 805,
+      "sha256": "db5deebed4db120bcc55755cc1ac7036c320bf5e7a5924ad294bfcedd7bf0659"
+    },
+    {
+      "path": "Dockerfile",
+      "bytes": 229,
+      "sha256": "6091546662cb067b6494b6cd12c596c6d8fc616adac278e0bbfc371137c96972"
+    },
+    {
+      "path": "Dockerfile.gpu",
+      "bytes": 653,
+      "sha256": "c249963424243f45a53c3b5954d752605b0f297e6b989ab6c1fc1dee3c9fcbdf"
+    },
+    {
+      "path": "Dockerfile.jetson",
+      "bytes": 413,
+      "sha256": "1710a2efa5a0f86cb7d12c44b6f895e05579a6c2434a7d324046cfe90841d321"
+    },
+    {
+      "path": "docs/api.md",
+      "bytes": 1056,
+      "sha256": "40aa6d93ab0ef07d49086351c9b5b6e3e9b349c1d1d08fac093a6abb2f5f9544"
+    },
+    {
+      "path": "docs/database_schema.md",
+      "bytes": 820,
+      "sha256": "124aad679898995d0649b9780c4a7126395380557f71e57a23f574ff024d48de"
+    },
+    {
+      "path": "docs/deployment.md",
+      "bytes": 956,
+      "sha256": "40f08b119a1858f17ea9244fb2d48d0b132dccf4d4ceca7ae810fde4fa75cffa"
+    },
+    {
+      "path": "docs/edge_deployment.md",
+      "bytes": 1795,
+      "sha256": "4be02c6dd56a7fbf753a816a862564c2102de24abbcbe0d64a76d328d460a962"
+    },
+    {
+      "path": "docs/troubleshooting.md",
+      "bytes": 1045,
+      "sha256": "944387b046413298715166a3fb43bf4e3ffbd6938aacb6e9dac75838344aabf3"
+    },
+    {
+      "path": "docs/user_manual.md",
+      "bytes": 1164,
+      "sha256": "f9debc26f3676adf903210266463bc38f2abd6d37abcb8623e423af90f277222"
+    },
+    {
+      "path": "install_edge.ps1",
+      "bytes": 548,
+      "sha256": "ce6660adf747b5bb04768a235dc7b38ff9512e85758528f55e151da4ca546df6"
+    },
+    {
+      "path": "logs/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "models/baselines/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "models/edge/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "models/neurocap_full/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "models/neurocap_resnet10/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "models/README.md",
+      "bytes": 479,
+      "sha256": "4a9c65c5d1dea019da6566604b0242c609d72f5db40ea5d8d0ac10f2e31c783c"
+    },
+    {
+      "path": "outputs/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packaging/sounddet.spec",
+      "bytes": 644,
+      "sha256": "f8fc3757a4c645f630b5ec09f8500e6a58fd0908848ca25ae80f565b64c48591"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3788,
+      "sha256": "2d39bfe0a36dfaa931a4eddfa8aaee03f6a0daffc5778a7b1edfaba54b1fc16b"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 174,
+      "sha256": "ba5361fd8924b19e9539dca8226a1328c15c6e4941531b7ebcfd3a2092231ad2"
+    },
+    {
+      "path": "run_desktop.ps1",
+      "bytes": 157,
+      "sha256": "a8f57b27653438ccb1d78d7de1ea8b1c54031295a8ac3defe2a6af0e084140b5"
+    },
+    {
+      "path": "run_eval.ps1",
+      "bytes": 160,
+      "sha256": "e9459ffdfa17a57ea1bbf8f61389425f1ed4b5c05a86b7028beb76af734a8def"
+    },
+    {
+      "path": "run_service.ps1",
+      "bytes": 256,
+      "sha256": "ec7d2ba05a6e33837bde91a18a878fdf9c1b981c1937c37e9b5e8dec1a6ff32a"
+    },
+    {
+      "path": "scripts/benchmark_backend.py",
+      "bytes": 2653,
+      "sha256": "fe8bc234ba4c47eda604f7ee67c5ca4c7dbcc8ba06c9e1253fc3aba7281f97f0"
+    },
+    {
+      "path": "scripts/benchmark_continuous_batching.py",
+      "bytes": 7084,
+      "sha256": "7e20134abf75746c8d991e5d4838dafc99097abb13a70de07207acadd8bc6aa5"
+    },
+    {
+      "path": "scripts/benchmark_onnx_model_only.py",
+      "bytes": 2044,
+      "sha256": "fff71a5e7bbeae9f0936d4f343a145f8f611fa9305c38d86e8eb1ad995763085"
+    },
+    {
+      "path": "scripts/build_tensorrt.py",
+      "bytes": 1194,
+      "sha256": "5042834cf985fb2be5c81e10f5db6688d0ed142e191e0ec1d16a1690e81f9859"
+    },
+    {
+      "path": "scripts/desktop_launcher_wrapper.py",
+      "bytes": 648,
+      "sha256": "cba83830f9ece4b7c148d8f4b2c4e97e90d7d89e13f45bcef12d794706086223"
+    },
+    {
+      "path": "scripts/diagnose_offline_consistency.py",
+      "bytes": 2863,
+      "sha256": "94d9336bc1a0c926d7a547d511a9c6c54817c5b2cf050b1743ea364865c1850a"
+    },
+    {
+      "path": "scripts/evaluate_online_strategy_ablation.py",
+      "bytes": 11693,
+      "sha256": "982bfddb19f127af2e471554d3d3f4196ed956956e27196a92fe3c5741e59169"
+    },
+    {
+      "path": "scripts/export_onnx.py",
+      "bytes": 3696,
+      "sha256": "3abe88c7d182bad2087e81dd9c4118cc999fe2f4d617ed28ab70a9bcdb339d9a"
+    },
+    {
+      "path": "scripts/export_session_report.py",
+      "bytes": 1057,
+      "sha256": "5f0483fa1882d8bf99b51699421248edc17363a9c79dee702c834acf38455fe6"
+    },
+    {
+      "path": "scripts/optimize_onnx_graph.py",
+      "bytes": 2800,
+      "sha256": "c67fe069c71f880417c89b3a9a0a7348a68d5d35480ff0f213b125b378d68ed1"
+    },
+    {
+      "path": "scripts/package_app.py",
+      "bytes": 1030,
+      "sha256": "06c8d3c34b7c4f2e1ccc449ac330b0a9607fc91ed622baea0d83883a95d82a70"
+    },
+    {
+      "path": "scripts/prepare_triton_repository.py",
+      "bytes": 1547,
+      "sha256": "5727b63d929ad728be2646050eae7d76b2ec2a9c400017511a2e017e5982db86"
+    },
+    {
+      "path": "scripts/run_backend_shadow_eval.py",
+      "bytes": 3894,
+      "sha256": "5b0282e99aa3ddc0edc39c87c8e0844afdd32062dfc1413c9921c2529d282090"
+    },
+    {
+      "path": "scripts/run_desktop.py",
+      "bytes": 350,
+      "sha256": "87afc433a55126225588b2a5acf942810712cf9a34b904d1056efa772cfc7a47"
+    },
+    {
+      "path": "scripts/run_file_stream.py",
+      "bytes": 2078,
+      "sha256": "076fb4d4fb8f3a78acc1c9a1c2587228ba1c20ed73a4fd7cdd7b9769e3a35e01"
+    },
+    {
+      "path": "scripts/run_online_eval.py",
+      "bytes": 2891,
+      "sha256": "6a8414187ed801b4d067486a437a2fecb0a450d13a82226d75fb0de02f5e0586"
+    },
+    {
+      "path": "scripts/run_realtime.py",
+      "bytes": 1348,
+      "sha256": "640f409f63505fcc024291c21323da69459692248d6ee57aa1bf6b48ffa584ec"
+    },
+    {
+      "path": "scripts/run_regression_eval.py",
+      "bytes": 984,
+      "sha256": "c8358e885e35aa4fa11afedf784b25276d96213830ea7c89da54471fb390c85a"
+    },
+    {
+      "path": "scripts/run_service.py",
+      "bytes": 865,
+      "sha256": "390ba6c3ba21009a0902a50d630a7940940aa713b1b8180916bd283411c3768e"
+    },
+    {
+      "path": "scripts/run_stability_test.py",
+      "bytes": 2990,
+      "sha256": "6a0693ec864d63ff39842c7d0f40893eef0b257add04e4c291276add6c2d886c"
+    },
+    {
+      "path": "scripts/scan_online_thresholds.py",
+      "bytes": 4098,
+      "sha256": "e1735647f1fdd3358d820bf56adadf7dc64e55dd0c54d89a9f377f89e82f4801"
+    },
+    {
+      "path": "scripts/smoke_model.py",
+      "bytes": 1829,
+      "sha256": "c89ce6d6d0a5bab3c6c5670baf2dc4f74f0ed49ba47af67717cceccb20141004"
+    },
+    {
+      "path": "scripts/startup_self_check.py",
+      "bytes": 2023,
+      "sha256": "79f19b5ac12121c14fca2c78ee1c1b2590d81da3e0e1e73f3c3ec1df096831fa"
+    },
+    {
+      "path": "scripts/summarize_online_results.py",
+      "bytes": 5760,
+      "sha256": "b3df5f7d1fd6d38dcb8d5885f9c70640fb1627380615ccfadf13fbe989edc2a1"
+    },
+    {
+      "path": "scripts/validate_export.py",
+      "bytes": 3343,
+      "sha256": "c7a932a0f9f6a3cd29d0c594738ec467d95c97586c06cf00cff3064cf6624a3e"
+    },
+    {
+      "path": "scripts/verify_manifest.py",
+      "bytes": 1237,
+      "sha256": "51eae4b465742c016609cea5a9348228ae1b014f5962d4bb4a1df5bf36f9ee8e"
+    },
+    {
+      "path": "src/sounddet/__init__.py",
+      "bytes": 146,
+      "sha256": "46d198f8819680235b101588c1fe1abf88ee77c6174949f2094c0158482793ee"
+    },
+    {
+      "path": "src/sounddet/alerting.py",
+      "bytes": 2096,
+      "sha256": "563269a6975dc909edaef7ff433d37cdd646d086fed758435ca07387db1ecabd"
+    },
+    {
+      "path": "src/sounddet/audio_stream.py",
+      "bytes": 2770,
+      "sha256": "8f0717604c3e32000d9f5579bec699d22abf905d45736ef6b8ac5065a2186504"
+    },
+    {
+      "path": "src/sounddet/batching.py",
+      "bytes": 4294,
+      "sha256": "9c3bc37e3963aedfc2d058f827706f465d90faaa891a58812436405f8108c840"
+    },
+    {
+      "path": "src/sounddet/config.py",
+      "bytes": 3588,
+      "sha256": "bc79befa4c0201b2157ade719b63a2cb768bd5f4d3be2593d49a62eda8005597"
+    },
+    {
+      "path": "src/sounddet/dynamic_threshold.py",
+      "bytes": 2062,
+      "sha256": "f1d825e795de1669951a33a3a237582b796a1c925c872d1272aa4287a09be5db"
+    },
+    {
+      "path": "src/sounddet/edge_backend.py",
+      "bytes": 12639,
+      "sha256": "a7a9c151f2ca82038db48e3d6e3e8119cf1e4a453f6b9d9f2da8e98f91c72e9d"
+    },
+    {
+      "path": "src/sounddet/engine.py",
+      "bytes": 12273,
+      "sha256": "60c7aa112352a513fd298f42ef82696f027f067fc327775fd066fae91c2b9bd2"
+    },
+    {
+      "path": "src/sounddet/evaluator.py",
+      "bytes": 6987,
+      "sha256": "962f66c877532d99b4c8aad5d6b95bdfde808196697d4c71e6a0992f61c1ae1c"
+    },
+    {
+      "path": "src/sounddet/event_dedupe.py",
+      "bytes": 1973,
+      "sha256": "dc3ffcdf31f8f997f057284b83d7b585fa45930dbed9b9a0ad8753c36383bce8"
+    },
+    {
+      "path": "src/sounddet/event_store.py",
+      "bytes": 8629,
+      "sha256": "19dc6e8752eb93cd3aed6c50dfccac42082b6ec7f03825d59950902299321b1a"
+    },
+    {
+      "path": "src/sounddet/features.py",
+      "bytes": 1912,
+      "sha256": "fc4683387ce98969afaee38e7258f9d66ffbdd64a3ec78cdb9a2c1f324e755c8"
+    },
+    {
+      "path": "src/sounddet/gui.py",
+      "bytes": 22472,
+      "sha256": "3396d51fa756b2faeb3b63979c0276bf123a83e28dd028418761fafaac617f04"
+    },
+    {
+      "path": "src/sounddet/health.py",
+      "bytes": 1485,
+      "sha256": "e74cbf50c4c45d81880d4b6035c0c290c0ed68ffac6236169c8e14d27588979d"
+    },
+    {
+      "path": "src/sounddet/light_baselines.py",
+      "bytes": 6029,
+      "sha256": "c09859e1dc470269fa08a5bcce38466a9da261e51f58eca7ea502a10659d1e8e"
+    },
+    {
+      "path": "src/sounddet/logging_utils.py",
+      "bytes": 1040,
+      "sha256": "52104570784eb542bc18ca37cd846e0d258999e01227982d5f7d23445b45f3cf"
+    },
+    {
+      "path": "src/sounddet/metrics.py",
+      "bytes": 10676,
+      "sha256": "acbcae2a01994241b20e79f0c3136dc26137d4517f458fe8bd05545ec7a6669f"
+    },
+    {
+      "path": "src/sounddet/model_adapter.py",
+      "bytes": 4984,
+      "sha256": "a71dac37ead88c2e1095d2f91a51f72217278ea9e168302b46716ee0e999855e"
+    },
+    {
+      "path": "src/sounddet/model_package.py",
+      "bytes": 1383,
+      "sha256": "2e4f5c9739c5286bb8d985c522fcbe9f9d246f534767a43bc4ad9d6ff0723e2b"
+    },
+    {
+      "path": "src/sounddet/model_registry.py",
+      "bytes": 2466,
+      "sha256": "8634ee73cf2deeaa7d1150f9474cd19a4c5d4555de72d671805fa84c13f1f3df"
+    },
+    {
+      "path": "src/sounddet/neurocap_model.py",
+      "bytes": 16595,
+      "sha256": "328da00e4394efeb157004b09bea679823b6434d7db1b2f36450857c35499d2c"
+    },
+    {
+      "path": "src/sounddet/online_trial.py",
+      "bytes": 10030,
+      "sha256": "b716075e8a33b28fa300d29e918878105110c078360f4de1176065c1ccc2ee24"
+    },
+    {
+      "path": "src/sounddet/postprocess.py",
+      "bytes": 4479,
+      "sha256": "cda36a2c93b8f5a90d430e986e681284279e804492fa5b8864eaecb1c4cf51a7"
+    },
+    {
+      "path": "src/sounddet/reporting.py",
+      "bytes": 3219,
+      "sha256": "f43b1df2ddb122932be2fbb0968dfea3eb0a7dff56629b85fdc34227f6cd9cb9"
+    },
+    {
+      "path": "src/sounddet/service.py",
+      "bytes": 11886,
+      "sha256": "1c623e537f5538b28604b088f8a2bcedef7af306ec377c69b4538ced8a1aca18"
+    },
+    {
+      "path": "src/sounddet/sliding_window.py",
+      "bytes": 1555,
+      "sha256": "db17209f9737a2c85dfdf0de7d1551bfc3db02345c6f1ae0ade4e1754c8baec0"
+    },
+    {
+      "path": "src/sounddet/source_localization.py",
+      "bytes": 2117,
+      "sha256": "83443541b87e6ff7fe1a7050f1627b983215b819263777b0ea731b0ee136caad"
+    },
+    {
+      "path": "src/sounddet/system_monitor.py",
+      "bytes": 2012,
+      "sha256": "505ca1a95bb2a277ee6475ebd5bd84fef90ebf5806ea93fd2b78eb85234d3ab9"
+    },
+    {
+      "path": "src/sounddet/tracing.py",
+      "bytes": 1797,
+      "sha256": "ff996e54ecae4474d3ff4c9796e2f49f7480f7fe2b964d973f185319489a9eb6"
+    },
+    {
+      "path": "VERSION",
+      "bytes": 7,
+      "sha256": "28fbbba47ed004292ee1fc2f96c313b4836945993e6ec80522b151ef7ebce613"
+    },
+    {
+      "path": "web/index.html",
+      "bytes": 13321,
+      "sha256": "a70db1d67f2707657534446baec538e29582649e3b22a0e420d2bc201fac60d1"
+    }
+  ]
+}

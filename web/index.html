@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acoustic Sentinel Console</title>
+  <style>
+    :root {
+      --bg: #081018;
+      --panel: #101b25;
+      --panel-2: #142230;
+      --line: #263848;
+      --text: #eaf2f7;
+      --muted: #8fa4b5;
+      --cyan: #4fc3d7;
+      --green: #69d49a;
+      --amber: #f0b35a;
+      --red: #f06f6c;
+      --blue: #7bb7ff;
+      --gray: #9aa6b2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: radial-gradient(circle at 20% 0%, #122536 0, #081018 38%, #060b10 100%);
+      color: var(--text);
+    }
+    header {
+      height: 72px;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8, 16, 24, 0.88);
+      backdrop-filter: blur(12px);
+    }
+    h1 { margin: 0; font-size: 22px; letter-spacing: 0; }
+    .sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .pill {
+      border: 1px solid var(--line);
+      background: #0c1720;
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    button {
+      background: #176b78;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 9px 14px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    button:hover { background: #20899a; }
+    main {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-rows: auto auto 1fr;
+      gap: 14px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(20, 34, 48, 0.96), rgba(12, 23, 32, 0.96));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.24);
+    }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #dce8ef;
+    }
+    .status-grid, .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .status-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .metric {
+      background: #0b151e;
+      border: 1px solid #223343;
+      border-radius: 7px;
+      min-height: 78px;
+      padding: 12px;
+    }
+    .metric span { display: block; color: var(--muted); font-size: 12px; }
+    .metric strong { display: block; margin-top: 8px; font-size: 25px; line-height: 1.1; }
+    .metric small { color: var(--muted); }
+    .ok { color: var(--green); }
+    .warn { color: var(--amber); }
+    .bad { color: var(--red); }
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    canvas {
+      width: 100%;
+      height: 210px;
+      display: block;
+      background: #08121a;
+      border: 1px solid #223343;
+      border-radius: 7px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border-bottom: 1px solid #223343; padding: 9px 8px; text-align: left; }
+    th { color: #b8c8d4; font-weight: 700; background: #0d1822; }
+    td { color: #e7eef4; }
+    .scroll { max-height: 380px; overflow: auto; border: 1px solid #223343; border-radius: 7px; }
+    .config-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 14px;
+      font-size: 13px;
+    }
+    .config-list div {
+      border-bottom: 1px solid #223343;
+      padding-bottom: 7px;
+      color: var(--muted);
+    }
+    .config-list strong { display: block; color: var(--text); margin-top: 3px; font-weight: 650; }
+    .full { grid-column: 1 / -1; }
+    @media (max-width: 1100px) {
+      main, .chart-row { grid-template-columns: 1fr; }
+      .status-grid, .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Acoustic Sentinel Console</h1>
+      <div class="sub">Online sound target detection operations dashboard</div>
+    </div>
+    <div class="header-actions">
+      <div class="pill" id="updated">Last update: -</div>
+      <button onclick="refresh()">Refresh</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card full">
+      <h2>System Status</h2>
+      <div class="status-grid">
+        <div class="metric"><span>Runtime</span><strong id="running">-</strong><small id="runningSub">service</small></div>
+        <div class="metric"><span>Model</span><strong id="model">-</strong><small id="modelSub">active</small></div>
+        <div class="metric"><span>Input</span><strong id="input">-</strong><small>latest session</small></div>
+        <div class="metric"><span>GPU</span><strong id="gpu">-</strong><small id="gpuSub">device</small></div>
+        <div class="metric"><span>Database</span><strong id="db">Ready</strong><small>SQLite</small></div>
+      </div>
+    </section>
+
+    <section class="card full">
+      <h2>Detection Metrics</h2>
+      <div class="metric-grid">
+        <div class="metric"><span>Events</span><strong id="events">0</strong><small>total stored</small></div>
+        <div class="metric"><span>Windows</span><strong id="windows">0</strong><small>sliding windows</small></div>
+        <div class="metric"><span>Latency P95</span><strong id="p95">-</strong><small>ms</small></div>
+        <div class="metric"><span>Latency P99</span><strong id="p99">-</strong><small>ms</small></div>
+        <div class="metric"><span>FAR/hour</span><strong id="far">-</strong><small>latest report</small></div>
+        <div class="metric"><span>Event F1</span><strong id="f1">-</strong><small>latest report</small></div>
+        <div class="metric"><span>Last Confidence</span><strong id="lastConf">-</strong><small>recent alert</small></div>
+        <div class="metric"><span>CPU / Memory</span><strong id="cpuMem">-</strong><small>runtime</small></div>
+      </div>
+    </section>
+
+    <section class="chart-row full">
+      <div class="card">
+        <h2>Latency Trend</h2>
+        <canvas id="latencyChart" width="900" height="260"></canvas>
+      </div>
+      <div class="card">
+        <h2>Class Distribution</h2>
+        <canvas id="classChart" width="900" height="260"></canvas>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Recent Alerts</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Created</th><th>Class</th><th>Conf.</th><th>Clip</th><th>Review</th></tr></thead>
+          <tbody id="eventRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Model And Decision Policy</h2>
+      <div class="config-list" id="configList"></div>
+    </section>
+  </main>
+
+  <script>
+    const classColors = ['#f06f6c', '#f0b35a', '#7bb7ff', '#9aa6b2', '#69d49a'];
+    const classes = ['Gunshot', 'Glass', 'Babycry', 'NonTarget', 'Background'];
+
+    function fmt(value, digits = 2) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '-';
+      return Number(value).toFixed(digits);
+    }
+    function timeText(ts) {
+      if (!ts) return '-';
+      return new Date(Number(ts) * 1000).toLocaleString();
+    }
+    function metricValue(summary, key, fallback = '-') {
+      return summary && Object.prototype.hasOwnProperty.call(summary, key) ? summary[key] : fallback;
+    }
+    async function refresh() {
+      const data = await fetch('/dashboard/overview').then(r => r.json());
+      const summary = data.summary || {};
+      const runtime = data.runtime || {};
+      const session = data.latest_session || {};
+      const counts = data.counts || {};
+      document.getElementById('updated').textContent = `Last update: ${new Date().toLocaleTimeString()}`;
+      document.getElementById('running').textContent = data.health.running ? 'Running' : 'Idle';
+      document.getElementById('running').className = data.health.running ? 'ok' : 'warn';
+      document.getElementById('runningSub').textContent = `API ${data.health.running ? 'active' : 'waiting'}`;
+      document.getElementById('model').textContent = data.health.model || '-';
+      document.getElementById('modelSub').textContent = `${(data.models || []).filter(m => m.available).length} available`;
+      document.getElementById('input').textContent = session.input_source || '-';
+      document.getElementById('gpu').textContent = runtime.gpu_util_percent === null || runtime.gpu_util_percent === undefined ? 'CPU' : `${fmt(runtime.gpu_util_percent, 0)}%`;
+      document.getElementById('gpuSub').textContent = runtime.gpu_memory_used_mb ? `${fmt(runtime.gpu_memory_used_mb, 0)} / ${fmt(runtime.gpu_memory_total_mb, 0)} MB` : 'no GPU metric';
+      document.getElementById('events').textContent = counts.events || 0;
+      document.getElementById('windows').textContent = counts.windows || 0;
+      document.getElementById('p95').textContent = fmt(metricValue(summary, 'latency_p95_ms'));
+      document.getElementById('p99').textContent = fmt(metricValue(summary, 'latency_p99_ms'));
+      document.getElementById('far').textContent = fmt(metricValue(summary, 'false_alarms_per_hour'));
+      document.getElementById('f1').textContent = fmt(metricValue(summary, 'target_event_f1', metricValue(summary, 'event_f1')), 3);
+      document.getElementById('lastConf').textContent = fmt(counts.latest_confidence, 3);
+      document.getElementById('cpuMem').textContent = `${fmt(runtime.cpu_percent, 0)}% / ${fmt(runtime.memory_percent, 0)}%`;
+      renderEvents(data.recent_events || []);
+      renderConfig(data.config || {}, session);
+      drawLatency(data.latency_series || []);
+      drawClasses((counts.class_counts || {}));
+    }
+    function renderEvents(events) {
+      const rows = events.map(e => {
+        const clip = e.clip_path ? `<span title="${e.clip_path}">saved</span>` : '-';
+        return `<tr><td>${timeText(e.created_at)}</td><td>${e.label_name}</td><td>${fmt(e.confidence, 3)}</td><td>${clip}</td><td>${e.review_status || '-'}</td></tr>`;
+      });
+      document.getElementById('eventRows').innerHTML = rows.join('') || '<tr><td colspan="5">No alerts recorded</td></tr>';
+    }
+    function renderConfig(cfg, session) {
+      const items = [
+        ['Sample rate', `${cfg.sample_rate || '-'} Hz`],
+        ['Window / Hop', `${cfg.window_sec || '-'} s / ${cfg.hop_sec || '-'} s`],
+        ['Thresholds', cfg.class_thresholds || cfg.target_threshold || '-'],
+        ['EMA', cfg.ema_alpha],
+        ['Confirm frames', cfg.confirm_frames],
+        ['Merge gap', `${cfg.merge_gap_sec || '-'} s`],
+        ['Mode', cfg.trial_mode || '-'],
+        ['Session', session.session_id || '-']
+      ];
+      document.getElementById('configList').innerHTML = items.map(([k, v]) => `<div>${k}<strong>${v}</strong></div>`).join('');
+    }
+    function drawLatency(series) {
+      const c = document.getElementById('latencyChart');
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+      drawAxes(ctx, c.width, c.height);
+      if (!series.length) return drawEmpty(ctx, c, 'No latency samples');
+      const values = series.map(x => Number(x.latency_ms || 0));
+      const max = Math.max(1, ...values) * 1.15;
+      ctx.strokeStyle = '#4fc3d7';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      values.forEach((v, i) => {
+        const x = 42 + i * ((c.width - 70) / Math.max(1, values.length - 1));
+        const y = c.height - 34 - (v / max) * (c.height - 64);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.fillStyle = '#8fa4b5';
+      ctx.fillText(`max ${fmt(max / 1.15)} ms`, 46, 24);
+    }
+    function drawClasses(counts) {
+      const c = document.getElementById('classChart');
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+      const vals = classes.map(k => Number(counts[k] || 0));
+      const max = Math.max(1, ...vals);
+      const barW = (c.width - 90) / vals.length - 18;
+      vals.forEach((v, i) => {
+        const h = (v / max) * (c.height - 78);
+        const x = 48 + i * (barW + 18);
+        const y = c.height - 36 - h;
+        ctx.fillStyle = classColors[i];
+        ctx.fillRect(x, y, barW, h);
+        ctx.fillStyle = '#eaf2f7';
+        ctx.fillText(String(v), x + 3, y - 8);
+        ctx.save();
+        ctx.translate(x + 2, c.height - 18);
+        ctx.rotate(-0.35);
+        ctx.fillStyle = '#8fa4b5';
+        ctx.fillText(classes[i], 0, 0);
+        ctx.restore();
+      });
+      if (vals.every(v => v === 0)) drawEmpty(ctx, c, 'No events');
+    }
+    function drawAxes(ctx, w, h) {
+      ctx.strokeStyle = '#223343';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(40, 18);
+      ctx.lineTo(40, h - 32);
+      ctx.lineTo(w - 18, h - 32);
+      ctx.stroke();
+    }
+    function drawEmpty(ctx, c, text) {
+      ctx.fillStyle = '#8fa4b5';
+      ctx.font = '18px Segoe UI';
+      ctx.fillText(text, c.width / 2 - 60, c.height / 2);
+    }
+    const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/stream/events`);
+    ws.onmessage = () => refresh();
+    ws.onerror = () => {};
+    refresh();
+    setInterval(refresh, 5000);
+  </script>
+</body>
+</html>

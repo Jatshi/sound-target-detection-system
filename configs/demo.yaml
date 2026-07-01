@@ -1,0 +1,16 @@
+sample_rate: 44100
+window_sec: 1.0
+hop_sec: 0.5
+class_thresholds: 0.25,0.25,0.35
+ema_alpha: 0.60
+confirm_frames: 1
+merge_gap_sec: 1.00
+default_model: neurocap_full
+stream_minutes: 1
+streams_per_dataset: 1
+trial_mode: aligned
+output_dir: outputs\demo
+db_path: data\sounddet.db
+log_dir: logs
+service_host: 127.0.0.1
+service_port: 8765

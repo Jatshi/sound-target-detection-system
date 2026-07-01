@@ -1,0 +1,16 @@
+sample_rate: 44100
+window_sec: 1.0
+hop_sec: 0.5
+target_threshold: 0.25
+class_thresholds: 0.25,0.25,0.35
+ema_alpha: 0.60
+confirm_frames: 1
+merge_gap_sec: 1.00
+match_tolerance_sec: 0.50
+default_model: neurocap_full
+stream_minutes: 5
+streams_per_dataset: 5
+seed: 2026
+dataset_root: datasets/ood_final_datasets
+output_dir: outputs\online_eval
+trial_mode: stream
