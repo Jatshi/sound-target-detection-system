@@ -1,10 +1,15 @@
 {
-  "created_at": "2026-07-01T10:00:39",
+  "created_at": "2026-07-03T10:08:35",
   "files": [
     {
       "path": ".gitignore",
       "bytes": 484,
       "sha256": "25b2436228103b59e3c79272f672f6197e87a5335a7eed58ea7074e04b738160"
+    },
+    {
+      "path": "assets/readme/sounddet-demo.gif",
+      "bytes": 3569290,
+      "sha256": "cff81102d5d1e66227f7603e6c513086e4860c47782e7dacdac351ccfca67a18"
     },
     {
       "path": "CHANGELOG.md",
@@ -102,6 +107,11 @@
       "sha256": "f9debc26f3676adf903210266463bc38f2abd6d37abcb8623e423af90f277222"
     },
     {
+      "path": "GITHUB_RELEASE_MANIFEST.json",
+      "bytes": 14994,
+      "sha256": "c7223c99561174a6f663280858062104b7e7ff22c149af1653e71733a0ad9f38"
+    },
+    {
       "path": "install_edge.ps1",
       "bytes": 548,
       "sha256": "ce6660adf747b5bb04768a235dc7b38ff9512e85758528f55e151da4ca546df6"
@@ -148,8 +158,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3788,
-      "sha256": "2d39bfe0a36dfaa931a4eddfa8aaee03f6a0daffc5778a7b1edfaba54b1fc16b"
+      "bytes": 7396,
+      "sha256": "e13f66d4b504534642a6d3f2fac61817ee82d739130c19b3e612623f7a1107aa"
     },
     {
       "path": "requirements.txt",
