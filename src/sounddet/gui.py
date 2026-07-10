@@ -14,6 +14,7 @@ from .engine import DetectionEngine
 from .event_store import EventStore
 from .model_registry import registry
 from .reporting import export_session_report
+from .system_monitor import read_runtime_metrics
 
 
 class EvalWorker(QtCore.QObject):
@@ -95,6 +96,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.cfg = load_config()
         self.store = EventStore(self.cfg)
         self.audio_devices: list[dict] = []
+        self.obs_labels: dict[str, QtWidgets.QLabel] = {}
         self._build_ui()
 
     def _build_ui(self):
@@ -126,6 +128,7 @@ class MainWindow(QtWidgets.QMainWindow):
             card.setWordWrap(True)
             status_cards.addWidget(card)
         layout.addLayout(status_cards)
+        layout.addWidget(self._make_observability_panel())
         controls_panel = QtWidgets.QVBoxLayout()
         controls_top = QtWidgets.QHBoxLayout()
         controls_bottom = QtWidgets.QHBoxLayout()
@@ -256,6 +259,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.latest_out_dir = ""
         self.refresh_devices()
         self._draw_direction(None)
+        self.obs_timer = QtCore.QTimer(self)
+        self.obs_timer.timeout.connect(self._refresh_observability)
+        self.obs_timer.start(2000)
+        self._refresh_observability()
 
     def _style(self) -> str:
         return """
@@ -265,6 +272,8 @@ class MainWindow(QtWidgets.QMainWindow):
         QLabel#StatusCard { background: #17212b; border: 1px solid #263645; border-radius: 8px; padding: 10px; color: #e7f0f5; }
         QTableWidget { background: #151f28; alternate-background-color: #1a2630; color: #e7edf4; gridline-color: #2c3a46; border: 1px solid #263645; border-radius: 6px; }
         QHeaderView::section { background: #20303b; color: #cbd7df; padding: 6px; border: 0px; }
+        QGroupBox { border: 1px solid #263645; border-radius: 8px; margin-top: 10px; padding: 10px; color: #dce8ef; font-weight: 700; }
+        QGroupBox::title { subcontrol-origin: margin; left: 12px; padding: 0 5px; color: #9fb6c8; }
         QPushButton { background: #1f6f78; color: white; padding: 7px 12px; border: 0px; border-radius: 6px; font-weight: 600; }
         QPushButton:hover { background: #268895; }
         QPushButton:disabled { background: #303841; color: #8794a0; }
@@ -280,6 +289,78 @@ class MainWindow(QtWidgets.QMainWindow):
         box.setValue(value)
         box.setMaximumWidth(72)
         return box
+
+    def _make_observability_panel(self) -> QtWidgets.QGroupBox:
+        panel = QtWidgets.QGroupBox("Runtime observability")
+        grid = QtWidgets.QGridLayout(panel)
+        grid.setHorizontalSpacing(10)
+        grid.setVerticalSpacing(8)
+        items = [
+            ("run", "Run state"),
+            ("cpu", "CPU"),
+            ("memory", "Memory"),
+            ("gpu", "GPU"),
+            ("gpu_mem", "GPU memory"),
+            ("gpu_temp", "GPU temp"),
+            ("disk", "Disk free"),
+            ("windows", "Windows"),
+            ("events", "Events"),
+            ("p95", "Latency P95"),
+            ("p99", "Latency P99"),
+            ("queue", "Queue / dropped"),
+        ]
+        for i, (key, title) in enumerate(items):
+            cell = QtWidgets.QWidget()
+            cell_layout = QtWidgets.QVBoxLayout(cell)
+            cell_layout.setContentsMargins(10, 8, 10, 8)
+            cell.setObjectName("StatusCard")
+            label = QtWidgets.QLabel(title)
+            label.setStyleSheet("color: #91a6b6; font-size: 8.5pt;")
+            value = QtWidgets.QLabel("-")
+            value.setStyleSheet("color: #f5fbff; font-size: 12pt; font-weight: 700;")
+            value.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
+            cell_layout.addWidget(label)
+            cell_layout.addWidget(value)
+            self.obs_labels[key] = value
+            grid.addWidget(cell, i // 6, i % 6)
+        return panel
+
+    def _set_obs(self, key: str, value: str) -> None:
+        label = self.obs_labels.get(key)
+        if label is not None:
+            label.setText(value)
+
+    def _refresh_observability(self) -> None:
+        try:
+            runtime = read_runtime_metrics(self.cfg.app_root)
+            running = self.thread is not None and self.thread.isRunning()
+            event_rows = self.store.query("SELECT COUNT(*) AS n FROM events")
+            window_rows = self.store.query("SELECT COUNT(*) AS n FROM window_predictions")
+            lat_rows = self.store.query("SELECT latency_ms FROM window_predictions ORDER BY id DESC LIMIT 2000")
+            latencies = np.array([float(row["latency_ms"]) for row in lat_rows], dtype=float)
+            p95 = float(np.percentile(latencies, 95)) if latencies.size else 0.0
+            p99 = float(np.percentile(latencies, 99)) if latencies.size else 0.0
+            events = int(event_rows[0]["n"]) if event_rows else 0
+            windows = int(window_rows[0]["n"]) if window_rows else 0
+            self._set_obs("run", "Running" if running else "Idle")
+            self._set_obs("cpu", f"{runtime.cpu_percent:.0f}%")
+            self._set_obs("memory", f"{runtime.memory_percent:.0f}%")
+            if runtime.gpu_util_percent is None:
+                self._set_obs("gpu", "not available")
+                self._set_obs("gpu_mem", "-")
+                self._set_obs("gpu_temp", "-")
+            else:
+                self._set_obs("gpu", f"{runtime.gpu_util_percent:.0f}%")
+                self._set_obs("gpu_mem", f"{runtime.gpu_memory_used_mb:.0f}/{runtime.gpu_memory_total_mb:.0f} MB")
+                self._set_obs("gpu_temp", f"{runtime.gpu_temperature_c:.0f} C")
+            self._set_obs("disk", f"{runtime.disk_free_gb:.1f} GB")
+            self._set_obs("windows", str(windows))
+            self._set_obs("events", str(events))
+            self._set_obs("p95", f"{p95:.2f} ms")
+            self._set_obs("p99", f"{p99:.2f} ms")
+            self._set_obs("queue", "0 / 0")
+        except Exception as exc:
+            self._set_obs("run", f"metrics error: {exc}")
 
     def start_eval(self):
         key = self.model_combo.currentData()
@@ -339,6 +420,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.card_model.setText(f"Model: {model}")
         self.card_events.setText(f"Events: {summary.get('n_pred_events', 0)}")
         self.card_latency.setText(f"Latency p95: {summary.get('latency_p95_ms', 0):.3f} ms" if "latency_p95_ms" in summary else "Latency p95: -")
+        self._refresh_observability()
         if "direction_azimuth_median_deg" in summary:
             self.card_direction.setText(f"Direction: {summary['direction_azimuth_median_deg']:.1f} deg")
         else:

@@ -50,6 +50,7 @@ Target classes:
 | Online audio | 44.1 kHz mono stream, 1.0 s window, 0.5 s hop, microphone and replay inputs |
 | Detection engine | Unified windowing, feature extraction, inference, post-processing, alert callbacks |
 | Desktop console | PyQt5 GUI with waveform, spectrogram, event table, model selection, thresholds, review |
+| Local observability | Desktop runtime panel for CPU, memory, GPU, disk, windows, events, latency P95/P99, queue status |
 | Web console | Browser dashboard at `/console` with events, latency, status, class distribution |
 | Service API | FastAPI REST endpoints, OpenAPI docs, WebSocket stream, Prometheus-style `/metrics` |
 | Event store | SQLite sessions, events, window predictions, audio clips, model registry, audit logs |

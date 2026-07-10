@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-03T10:08:35",
+  "created_at": "2026-07-10T09:06:36",
   "files": [
     {
       "path": ".gitignore",
@@ -40,6 +40,11 @@
       "path": "data/.gitkeep",
       "bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/sounddet.db",
+      "bytes": 53248,
+      "sha256": "f64a70899e82faf504ee9a1e7aed1e9e5ee7e262133b5d7652d97136c931a871"
     },
     {
       "path": "deploy/k8s/sounddet-inference.yaml",
@@ -103,13 +108,13 @@
     },
     {
       "path": "docs/user_manual.md",
-      "bytes": 1164,
-      "sha256": "f9debc26f3676adf903210266463bc38f2abd6d37abcb8623e423af90f277222"
+      "bytes": 1586,
+      "sha256": "51730f6e5944ea8ba28d8a2cde348d08fef00c73ece4daf8392bb5a3ebd3e2db"
     },
     {
       "path": "GITHUB_RELEASE_MANIFEST.json",
-      "bytes": 14994,
-      "sha256": "c7223c99561174a6f663280858062104b7e7ff22c149af1653e71733a0ad9f38"
+      "bytes": 15337,
+      "sha256": "382eb11850f2b0b701fa90bf1b93719ada8652c949315775c26281ae6bfd523a"
     },
     {
       "path": "install_edge.ps1",
@@ -158,8 +163,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 7396,
-      "sha256": "e13f66d4b504534642a6d3f2fac61817ee82d739130c19b3e612623f7a1107aa"
+      "bytes": 7519,
+      "sha256": "c8a218589e9873a0e436eebdb809f0e3caaacebc42e4193622645bc9d6e1f24d"
     },
     {
       "path": "requirements.txt",
@@ -373,8 +378,8 @@
     },
     {
       "path": "src/sounddet/gui.py",
-      "bytes": 22472,
-      "sha256": "3396d51fa756b2faeb3b63979c0276bf123a83e28dd028418761fafaac617f04"
+      "bytes": 26655,
+      "sha256": "426bc2cff47c878baec48ba236d85479469527e22f64f7c2171a69d723bfa489"
     },
     {
       "path": "src/sounddet/health.py",
